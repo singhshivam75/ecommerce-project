@@ -1,0 +1,109 @@
+@import "tailwindcss";
+/* Design tokens: colors, typography, spacing and elevation */
+:root {
+  /* Brand palette */
+  --brand-primary: #2563EB; /* Blue */
+  --brand-primary-variant: #60A5FA; /* Lighter blue */
+  --brand-accent: #8B5CF6; /* Violet */
+  --brand-accent-2: #EC4899; /* Pink */
+
+  /* Neutrals / Surfaces (light mode) */
+  --surface-0: #ffffff; /* page background */
+  --surface-1: #F8FAFF; /* cards / panels */
+  --surface-2: #F1F5F9; /* subtle panels */
+  --border: #E6EDF8;
+
+  /* Text (light) */
+  --text-primary: #0F172A;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  /* Feedback */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  /* Shadows and radius */
+  --shadow-1: 0 6px 18px rgba(16,24,40,0.06);
+  --shadow-2: 0 10px 30px rgba(2,6,23,0.25);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Typography */
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+
+  --type-xs: 12px;
+  --type-sm: 13px;
+  --type-base: 15px;
+  --type-lg: 18px;
+  --type-xl: 20px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Utility gradients */
+  --gradient-primary: linear-gradient(90deg,var(--brand-primary-variant) 0%, var(--brand-accent) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode overrides */
+    --brand-primary: #60A5FA;
+    --brand-primary-variant: #2563EB;
+    --brand-accent: #7C3AED;
+    --brand-accent-2: #EC4899;
+
+    --surface-0: #0B1724; /* page background (deep navy) */
+    --surface-1: #0F2336; /* panels */
+    --surface-2: #0B1A2A; /* cards */
+    --border: rgba(255,255,255,0.06);
+
+    --text-primary: #E6EEF8;
+    --text-secondary: #9BB0CF;
+    --text-muted: #6B89A8;
+
+    --shadow-1: 0 6px 18px rgba(2,6,23,0.6);
+    --shadow-2: 0 10px 30px rgba(2,6,23,0.8);
+  }
+}
+
+/* Apply tokens to base elements */
+html, body {
+  font-family: var(--font-sans);
+  font-size: var(--type-base);
+  background: var(--surface-0);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility helper classes that use tokens (non-exhaustive) */
+.card {
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--border);
+}
+
+.panel {
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+}
+
+.btn-primary {
+  background: var(--brand-primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-weight: var(--weight-medium);
+}
+
+.muted { color: var(--text-muted); }
+
+/* Keep Tailwind utilities for layout; tokens handle visual identity */
+/* End of tokens */
+
