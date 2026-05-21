@@ -1,6 +1,6 @@
 import {
   IsNotEmpty,
-  IsNumber,
+  IsUUID,
 } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -9,9 +9,8 @@ import { Type } from 'class-transformer';
 
 export class CreateProductSpecificationDto {
   @ApiProperty()
-  @Type(() => Number)
-  @IsNumber()
-  productId!: number;
+  @IsUUID()
+  productId!: string;
 
   @ApiProperty()
   @IsNotEmpty()

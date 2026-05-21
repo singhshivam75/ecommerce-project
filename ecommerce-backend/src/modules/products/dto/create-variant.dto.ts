@@ -1,8 +1,9 @@
 import {
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsBoolean,
+  IsUUID,
+  IsNumber,
 } from 'class-validator';
 
 import {
@@ -14,9 +15,8 @@ import { Type } from 'class-transformer';
 
 export class CreateVariantDto {
   @ApiProperty()
-  @Type(() => Number)
-  @IsNumber()
-  productId!: number;
+  @IsUUID()
+  productId!: string;
 
   @ApiProperty()
   @IsNotEmpty()

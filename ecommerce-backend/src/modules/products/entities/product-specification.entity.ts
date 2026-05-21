@@ -10,7 +10,7 @@ import { Product } from './product.entity';
 @Entity()
 export class ProductSpecification {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @ManyToOne(() => Product, {
     onDelete: 'CASCADE',

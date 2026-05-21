@@ -49,12 +49,12 @@ export class CartController {
     @Param('itemId') itemId: string,
     @Body() dto: UpdateCartDto,
   ) {
-    return this.cartService.updateItem(+itemId, dto.quantity);
+    return this.cartService.updateItem(itemId, dto.quantity);
   }
 
   @Delete(':itemId')
   @ApiOperation({ summary: 'Remove item from cart' })
   removeItem(@Param('itemId') itemId: string) {
-    return this.cartService.removeItem(+itemId);
+    return this.cartService.removeItem(itemId);
   }
 }

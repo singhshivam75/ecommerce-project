@@ -106,13 +106,13 @@ export class ProductsService {
     };
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const product = await this.productRepo.findOne({ where: { id }, relations: ['variants', 'images', 'specifications', 'category'] });
     if (!product) throw new NotFoundException('Product not found');
     return product;
   }
 
-  async update(id: number, dto: UpdateProductDto) {
+  async update(id: string, dto: UpdateProductDto) {
     const product = await this.findOne(id);
     if (dto.title) dto['slug'] = this.slugify(dto.title as string);
 
@@ -127,13 +127,13 @@ export class ProductsService {
     return this.productRepo.save(product);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const product = await this.findOne(id);
     await this.productRepo.remove(product);
     return { success: true };
   }
 
-  async toggle(id: number) {
+  async toggle(id: string) {
     const product = await this.findOne(id);
     product.isActive = !product.isActive;
     await this.productRepo.save(product);
@@ -172,7 +172,7 @@ export class ProductsService {
     return this.variantRepo.save(variant);
   }
 
-  async updateVariant(id: number, dto: UpdateVariantDto) {
+  async updateVariant(id: string, dto: UpdateVariantDto) {
     const variant = await this.variantRepo.findOne({ where: { id }, relations: ['product'] });
     if (!variant) throw new NotFoundException('Variant not found');
 
@@ -193,7 +193,7 @@ export class ProductsService {
     return this.variantRepo.save(variant);
   }
 
-  async deleteVariant(id: number) {
+  async deleteVariant(id: string) {
     const variant = await this.variantRepo.findOne({ where: { id } });
     if (!variant) throw new NotFoundException('Variant not found');
     await this.variantRepo.remove(variant);
@@ -223,7 +223,7 @@ export class ProductsService {
     return this.imageRepo.save(image);
   }
 
-  async deleteImage(id: number) {
+  async deleteImage(id: string) {
     const image = await this.imageRepo.findOne({ where: { id } });
     if (!image) throw new NotFoundException('Image not found');
     await this.imageRepo.remove(image);
@@ -244,7 +244,7 @@ export class ProductsService {
     return this.specRepo.save(spec);
   }
 
-  async deleteSpecification(id: number) {
+  async deleteSpecification(id: string) {
     const spec = await this.specRepo.findOne({ where: { id } });
     if (!spec) throw new NotFoundException('Specification not found');
     await this.specRepo.remove(spec);

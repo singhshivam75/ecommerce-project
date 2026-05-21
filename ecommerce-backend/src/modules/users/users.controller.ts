@@ -50,7 +50,7 @@ export class UsersController {
   @Get(':id')
   @ApiOperation({ summary: 'Get user by id (admin)' })
   getUser(@Param('id') id: string) {
-    return this.usersService.getUserById(+id);
+    return this.usersService.getUserById(id);
   }
 
   // ✅ UPDATE
@@ -60,13 +60,13 @@ export class UsersController {
     @Param('id') id: string,
     @Body() dto: UpdateUserDto,
   ) {
-    return this.usersService.updateUser(+id, dto);
+    return this.usersService.updateUser(id, dto);
   }
 
   // ✅ DELETE
   @Delete(':id')
   @ApiOperation({ summary: 'Delete user (admin)' })
   deleteUser(@Param('id') id: string) {
-    return this.usersService.deleteUser(+id);
+    return this.usersService.deleteUser(id);
   }
 }

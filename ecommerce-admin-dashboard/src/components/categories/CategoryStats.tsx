@@ -1,5 +1,5 @@
 import React from "react";
-import { Lucide, Archive, CheckCircle, Slash, Layers } from "lucide-react";
+import { Archive, CheckCircle, Slash, Layers } from "lucide-react";
 
 export default function CategoryStats({ stats }: { stats: any }) {
   const cards = [

@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Product, ProductVariant } from "@/src/types/product";
 
 export default function ProductDetails({ product }: { product: Product }) {
+    const variants = Array.isArray(product.variants) ? product.variants : [];
     const defaultVariant =
-        product.variants?.find((v) => v.isDefault) ||
-        product.variants?.[0];
+        variants.find((v) => v.isDefault) ||
+        variants[0];
 
     const [selectedVariant, setSelectedVariant] =
         useState<ProductVariant | undefined>(defaultVariant);
@@ -73,11 +74,11 @@ export default function ProductDetails({ product }: { product: Product }) {
                     </div>
 
                     {/* COLOR */}
-                    {product.variants?.length > 0 && (
+                    {variants.length > 0 && (
                         <div>
                             <h3 className="font-semibold mb-2">Color</h3>
                             <div className="flex gap-3 flex-wrap">
-                                {product.variants.map((v) => (
+                                {variants.map((v) => (
                                     <button
                                         key={v.id}
                                         onClick={() => setSelectedVariant(v)}
@@ -94,11 +95,11 @@ export default function ProductDetails({ product }: { product: Product }) {
                     )}
 
                     {/* SIZE */}
-                    {product.variants?.length > 0 && (
+                    {variants.length > 0 && (
                         <div>
                             <h3 className="font-semibold mb-2">Size</h3>
                             <div className="flex gap-3 flex-wrap">
-                                {product.variants.map((v) => (
+                                {variants.map((v) => (
                                     <button
                                         key={v.id}
                                         onClick={() => setSelectedVariant(v)}
@@ -145,3 +146,5 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
     );
 }
+
+

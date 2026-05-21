@@ -16,7 +16,7 @@ import { ProductSpecification } from './product-specification.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @Column()
   title!: string;

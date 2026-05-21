@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 
 interface JwtPayload {
-  sub: number;
+  sub: string;
   email: string;
   role: string;
 }
@@ -11,7 +11,7 @@ interface JwtPayload {
 export class TokenService {
   constructor(private jwtService: JwtService) {}
 
-  async generateTokens(userId: number, email: string, role: string) {
+  async generateTokens(userId: string, email: string, role: string) {
     const payload: JwtPayload = {
       sub: userId,
       email,

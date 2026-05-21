@@ -7,7 +7,7 @@ import { Order } from 'src/modules/orders/entities/order.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @Column()
   name!: string;

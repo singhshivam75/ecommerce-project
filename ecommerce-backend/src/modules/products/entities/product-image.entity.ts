@@ -10,7 +10,7 @@ import { Product } from './product.entity';
 @Entity()
 export class ProductImage {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @ManyToOne(
     () => Product,

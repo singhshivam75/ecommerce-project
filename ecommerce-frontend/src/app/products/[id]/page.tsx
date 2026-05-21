@@ -1,24 +1,19 @@
 import { ProductsAPI } from "@/src/lib/products";
 import ProductDetails from "@/src/components/productDetail/ProductDetails";
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>; // ✅ FIX TYPE
-}) {
-  // ✅ unwrap params
-  const { id } = await params;
-
-  console.log("REAL ID:", id); // should print "11"
-
+export default async function ProductDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const numericId = Number(id);
 
-  // ✅ safe check
   if (!numericId || isNaN(numericId)) {
     return <div className="p-10">Invalid Product</div>;
   }
 
   const product = await ProductsAPI.getById(numericId);
+
+  if (!product) {
+    return <div className="p-10">Product not found</div>;
+  }
 
   return <ProductDetails product={product} />;
 }

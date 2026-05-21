@@ -78,17 +78,7 @@ export class ProductsController {
   findOne(
     @Param('id') id: string,
   ) {
-    const numericId = Number(id);
-
-    if (isNaN(numericId)) {
-      throw new BadRequestException(
-        'Invalid product ID',
-      );
-    }
-
-    return this.productService.findOne(
-      numericId,
-    );
+    return this.productService.findOne(id);
   }
 
   // ======================================================
@@ -106,10 +96,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() dto: UpdateProductDto,
   ) {
-    return this.productService.update(
-      +id,
-      dto,
-    );
+    return this.productService.update(id, dto);
   }
 
   // ======================================================
@@ -126,7 +113,7 @@ export class ProductsController {
   remove(
     @Param('id') id: string,
   ) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 
   // ======================================================
@@ -143,7 +130,7 @@ export class ProductsController {
   toggle(
     @Param('id') id: string,
   ) {
-    return this.productService.toggle(+id);
+    return this.productService.toggle(id);
   }
 
   // ======================================================
@@ -178,7 +165,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() dto: UpdateVariantDto,
   ) {
-    return this.productService.updateVariant(+id, dto);
+    return this.productService.updateVariant(id, dto);
   }
 
   // ======================================================
@@ -195,7 +182,7 @@ export class ProductsController {
   removeVariant(
     @Param('id') id: string,
   ) {
-    return this.productService.deleteVariant(+id);
+    return this.productService.deleteVariant(id);
   }
 
   // ======================================================
@@ -229,7 +216,7 @@ export class ProductsController {
   removeImage(
     @Param('id') id: string,
   ) {
-    return this.productService.deleteImage(+id);
+    return this.productService.deleteImage(id);
   }
 
   // ======================================================
@@ -264,6 +251,6 @@ export class ProductsController {
   removeSpecification(
     @Param('id') id: string,
   ) {
-    return this.productService.deleteSpecification(+id);
+    return this.productService.deleteSpecification(id);
   }
 }

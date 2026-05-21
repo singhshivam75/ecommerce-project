@@ -51,7 +51,7 @@ export class UsersService {
   }
 
   // ✅ GET ONE
-  async getUserById(id: number) {
+  async getUserById(id: string) {
     const user = await this.userRepo.findOne({ where: { id } });
 
     if (!user) throw new NotFoundException('User not found');
@@ -67,7 +67,7 @@ export class UsersService {
   }
 
   // ✅ UPDATE
-  async updateUser(id: number, data: Partial<User>) {
+  async updateUser(id: string, data: Partial<User>) {
     const user = await this.userRepo.findOne({ where: { id } });
 
     if (!user) throw new NotFoundException('User not found');
@@ -82,7 +82,7 @@ export class UsersService {
   }
 
   // ✅ DELETE
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     const user = await this.userRepo.findOne({ where: { id } });
 
     if (!user) throw new NotFoundException('User not found');
@@ -97,7 +97,7 @@ export class UsersService {
     return await this.userRepo.findOne({ where: { email } });
   }
 
-  async update(id: number, data: Partial<User>) {
+  async update(id: string, data: Partial<User>) {
     return await this.userRepo.update(id, data);
   }
 }

@@ -88,11 +88,11 @@ export default function Header() {
           {/* Right Icons */}
           <div className="flex items-center gap-3">
             
-            <button className="hidden sm:flex icon-btn">
+            <Link href="/wishlist" className="hidden sm:flex icon-btn">
               <Heart className="w-5 h-5 group-hover:text-red-500 group-hover:fill-red-500" />
-            </button>
+            </Link>
 
-            <Link href="/login" className="hidden sm:flex icon-btn">
+            <Link href="/auth/login" className="hidden sm:flex icon-btn">
               <User className="w-5 h-5" />
             </Link>
 

@@ -1,7 +1,8 @@
 import {
   IsNotEmpty,
-  IsNumber,
   IsOptional,
+  IsUUID,
+  IsNumber,
 } from 'class-validator';
 
 import {
@@ -13,11 +14,10 @@ import { Type } from 'class-transformer';
 
 export class CreateProductImageDto {
   @ApiProperty({
-    example: 1,
+    description: 'Product UUID',
   })
-  @Type(() => Number)
-  @IsNumber()
-  productId!: number;
+  @IsUUID()
+  productId!: string;
 
   @ApiProperty({
     example: 'https://image-url.jpg',

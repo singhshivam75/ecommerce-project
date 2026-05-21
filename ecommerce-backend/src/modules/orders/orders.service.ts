@@ -25,7 +25,7 @@ export class OrdersService {
     private cartItemRepo: Repository<CartItem>,
   ) {}
 
-  async placeOrder(userId: number) {
+  async placeOrder(userId: string) {
     return await this.orderRepo.manager.transaction(async (manager) => {
       const cart = await manager.findOne(Cart, {
         where: { user: { id: userId } },
@@ -67,7 +67,7 @@ export class OrdersService {
     });
   }
 
-  async getUserOrders(userId: number) {
+  async getUserOrders(userId: string) {
     return this.orderRepo.find({
       where: { user: { id: userId } },
       relations: ['items', 'items.variant'], // ✅ FIX
@@ -81,7 +81,7 @@ export class OrdersService {
   });
 }
 
-async updateOrderStatus(orderId: number, status: string) {
+async updateOrderStatus(orderId: string, status: string) {
   const order = await this.orderRepo.findOne({
     where: { id: orderId },
   });

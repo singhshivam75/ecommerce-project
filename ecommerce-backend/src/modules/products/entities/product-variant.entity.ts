@@ -12,7 +12,7 @@ import { Product } from './product.entity';
 @Entity()
 export class ProductVariant {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @ManyToOne(
     () => Product,

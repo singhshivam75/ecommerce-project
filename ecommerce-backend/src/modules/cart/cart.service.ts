@@ -21,7 +21,7 @@ export class CartService {
     private variantRepo: Repository<ProductVariant>,
   ) {}
 
-  async getOrCreateCart(userId: number) {
+  async getOrCreateCart(userId: string) {
     let cart = await this.cartRepo.findOne({
       where: { user: { id: userId } },
       relations: ['items', 'items.variant', 'items.variant.product'],
@@ -37,7 +37,7 @@ export class CartService {
     return cart;
   }
 
-  async addToCart(userId: number, variantId: number, quantity: number) {
+  async addToCart(userId: string, variantId: string, quantity: number) {
     const cart = await this.getOrCreateCart(userId);
 
     const variant = await this.variantRepo.findOne({
@@ -68,14 +68,14 @@ export class CartService {
     return this.getCart(userId);
   }
 
-  async getCart(userId: number) {
+  async getCart(userId: string) {
     return this.cartRepo.findOne({
       where: { user: { id: userId } },
       relations: ['items', 'items.variant', 'items.variant.product'],
     });
   }
 
-  async updateItem(itemId: number, quantity: number) {
+  async updateItem(itemId: string, quantity: number) {
     const item = await this.cartItemRepo.findOne({
       where: { id: itemId },
     });
@@ -87,7 +87,7 @@ export class CartService {
     return this.cartItemRepo.save(item);
   }
 
-  async removeItem(itemId: number) {
+  async removeItem(itemId: string) {
     return this.cartItemRepo.delete(itemId);
   }
 }
