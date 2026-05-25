@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 /* Design tokens: colors, typography, spacing and elevation */
 :root {
@@ -79,6 +80,47 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* New input / button tokens */
+.input {
+  height: 44px;
+  border-radius: 14px;
+  padding: 0 16px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+  transition: all 200ms ease;
+}
+.input:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.12);
+  border-color: rgba(99,102,241,0.6);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 16px; border-radius: 12px; font-weight: 600;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.14);
+}
+.btn-primary:hover { transform: translateY(-2px); }
+
+.card { background: var(--surface-1); border-radius: var(--radius-lg); box-shadow: var(--shadow-1); border: 1px solid var(--border); }
+
+.badge { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600 }
+.badge--emerald { background: #ECFDF5; color: #047857 }
+.badge--amber { background: #FFFBEB; color: #92400E }
+.badge--slate { background: #F1F5F9; color: #334155 }
+.badge--rose { background: #FFF1F2; color: #BE123C }
+.badge--violet { background: #F5F3FF; color: #6D28D9 }
+
+/* Skeleton */
+.skeleton { background: linear-gradient(90deg, #f3f4f6 25%, #e9eefb 37%, #f3f4f6 63%); background-size: 400% 100%; animation: shimmer 1.2s linear infinite; }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
 /* Utility helper classes that use tokens (non-exhaustive) */
 .card {

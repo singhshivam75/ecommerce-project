@@ -1,21 +1,23 @@
-export default function Card({
-  children,
-  className = "",
-}: {
+import React from 'react';
+
+type CardProps = Readonly<{
   children: React.ReactNode;
   className?: string;
-}) {
+}>;
+
+export default function Card({
+  children,
+  className = '',
+}: CardProps) {
   return (
     <div
       className={`
-        bg-surface1/80 dark:bg-surface1/80
-        backdrop-blur-md
-        border border-border
+        bg-white
+        border border-slate-100
         rounded-2xl
-        shadow-token hover:shadow-xl
-        hover:-translate-y-1
-        transition-all duration-300
-        p-5
+        shadow-sm hover:shadow-md
+        transition-all duration-200
+        p-6
         ${className}
       `}
     >

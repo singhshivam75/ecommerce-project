@@ -1,10 +1,15 @@
-import React from "react";
+"use client";
+
+import { useParams } from "next/navigation";
+import MediaManager from "../../../../../components/product/media/MediaManager";
 
 export default function Page() {
+	const { id } = useParams();
+	const pid = Array.isArray(id) ? id[0] : id;
+
 	return (
 		<div className="p-6">
-			<h2 className="text-lg font-semibold">Product Images</h2>
-			<p className="text-sm text-slate-500">Manage product images here.</p>
+			<MediaManager productId={pid} />
 		</div>
 	);
 }
