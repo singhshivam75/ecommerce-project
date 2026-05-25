@@ -22,4 +22,13 @@ export class ProductSpecification {
 
   @Column()
   value!: string;
+
+  @Column({ type: 'text', nullable: true })
+  group?: string;
+
+  @Column({ type: 'int', default: 0 })
+  sortOrder!: number;
+
+  @Column({ default: false })
+  isHighlighted!: boolean;
 }

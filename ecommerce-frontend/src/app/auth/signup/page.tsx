@@ -135,11 +135,11 @@ export default function SignupPage() {
         </button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-500">Or sign up with</div>
+      {/* <div className="mt-6 text-center text-sm text-gray-500">Or sign up with</div>
       <div className="mt-4 grid grid-cols-2 gap-4">
         <button className="py-3 border rounded-xl">Google</button>
         <button className="py-3 border rounded-xl">Apple</button>
-      </div>
+      </div> */}
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Already have an account? <a href="/auth/login" className="text-indigo-600">Sign in</a>

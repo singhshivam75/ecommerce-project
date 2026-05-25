@@ -1,54 +1,94 @@
-export interface Product {
-	id: string | number;
-	name?: string;
-	title?: string;
-	price?: number;
-	basePrice?: string;
-	originalPrice?: number;
-	rating: number;
-	reviews?: number;
-	totalReviews?: number;
-	image?: string;
-	images?: ProductImage[];
-	category?: string;
-	brand?: string;
-	description?: string;
-	// Support both detailed variant objects and legacy sizes/colors shape
-	variants?: ProductVariant[] | { sizes?: string[]; colors?: string[] };
-	relatedProducts?: string[];
-	slug?: string;
-	shortDescription?: string;
+export interface ProductImage {
+  id: string;
+  url: string;
+  alt?: string;
+  isPrimary?: boolean;
+  width?: number;
+  height?: number;
+  mimeType?: string;
+  sortOrder?: number;
 }
 
-export interface ProductImage {
-	id: number;
-	url: string;
-	isPrimary: boolean;
+export interface ProductPricing {
+  price: number;
+  currency?: string;
+  compareAtPrice?: number;
+  discountType?: "percentage" | "fixed" | null;
+  discountValue?: number | null;
+  saleStartsAt?: string | null;
+  saleEndsAt?: string | null;
+}
+
+export interface ProductSpecification {
+  id: string;
+  key: string;
+  value: string;
+}
+
+export interface ProductReview {
+  id: string;
+  author?: string;
+  rating: number;
+  title?: string;
+  body?: string;
+  createdAt?: string;
+}
+
+export interface ProductShipping {
+  weight?: number;
+  width?: number;
+  height?: number;
+  depth?: number;
+  freeShipping?: boolean;
+  estimatedDelivery?: string;
 }
 
 export interface ProductVariant {
-	id?: number;
-	sku?: string;
-	price?: string;
-	compareAtPrice?: string;
-	stock?: number;
-	color?: string;
-	size?: string;
-	image?: string;
-	isDefault?: boolean;
+  id: string;
+  sku?: string;
+  title?: string;
+  size?: string | null;
+  color?: string | null;
+  price?: number | null;
+  compareAtPrice?: number | null;
+  stock?: number | null;
+  isDefault?: boolean;
+  imageId?: string | null;
+  isActive?: boolean;
+  metadata?: Record<string, unknown>;
 }
 
-export interface CartItem {
-	productId: string;
-	quantity: number;
-	selectedSize?: string;
-	selectedColor?: string;
+export interface Product {
+  id: string;
+  title: string;
+  slug: string;
+  brand?: string | null;
+  shortDescription?: string | null;
+  description?: string | null;
+  images?: ProductImage[];
+  variants?: ProductVariant[];
+  basePrice: number | string;
+  pricing?: ProductPricing;
+  specifications?: ProductSpecification[];
+  reviews?: ProductReview[];
+  rating?: number;
+  totalReviews?: number;
+  inventory?: {
+    total?: number;
+    available?: number;
+    status?: string;
+  };
+  tags?: string[];
+  isFeatured?: boolean;
+  isNewArrival?: boolean;
+  status?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
+  shipping?: ProductShipping;
+  createdAt?: string;
+  metadata?: Record<string, unknown>;
 }
-
-export interface Order {
-	id: string;
-	date: string;
-	status: "pending" | "shipped" | "delivered";
-	items: CartItem[];
-	total: number;
-}
+ 

@@ -7,6 +7,8 @@ import { Category } from '../categories/entities/category.entity';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 import { ProductSpecification } from './entities/product-specification.entity';
+import { ProductFaq } from './entities/product-faq.entity';
+import { ProductSlugHistory } from './entities/product-slug-history.entity';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { ProductSpecification } from './entities/product-specification.entity';
       ProductVariant,
       ProductImage,
       ProductSpecification,
+      ProductFaq,
+      ProductSlugHistory,
       Category,
     ]),
   ],

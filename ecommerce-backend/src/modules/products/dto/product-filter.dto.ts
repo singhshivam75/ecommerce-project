@@ -1,6 +1,7 @@
-import { IsOptional, IsString, IsNumber, Min, IsIn, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsNumber, Min, IsIn, IsUUID, IsArray, IsBoolean, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ProductStatus } from '../enums/product.enums';
 
 export class ProductFilterDto {
   @ApiPropertyOptional()
@@ -58,6 +59,22 @@ export class ProductFilterDto {
   @IsOptional()
   @IsString()
   sortBy?: string = 'createdAt';
+
+  @ApiPropertyOptional({ example: ['tag1','tag2'] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  tags?: string[];
+
+  @ApiPropertyOptional({ enum: ProductStatus })
+  @IsOptional()
+  @IsEnum(ProductStatus)
+  status?: ProductStatus;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  onSale?: boolean;
 
   @ApiPropertyOptional({ example: 'DESC' })
   @IsOptional()

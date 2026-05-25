@@ -68,20 +68,6 @@ export class ProductsController {
   }
 
   // ======================================================
-  // GET SINGLE PRODUCT
-  // ======================================================
-
-  @Get(':id')
-  @ApiOperation({
-    summary: 'Get product by ID',
-  })
-  findOne(
-    @Param('id') id: string,
-  ) {
-    return this.productService.findOne(id);
-  }
-
-  // ======================================================
   // UPDATE PRODUCT
   // ======================================================
 
@@ -253,4 +239,18 @@ export class ProductsController {
   ) {
     return this.productService.deleteSpecification(id);
   }
+
+    // ======================================================
+  // GET SINGLE PRODUCT
+  // ======================================================
+
+@Get(':identifier')
+@ApiOperation({
+  summary: 'Get product by ID or slug',
+})
+findOne(
+  @Param('identifier') identifier: string,
+) {
+  return this.productService.findOne(identifier);
+}
 }

@@ -71,11 +71,11 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-500">Or continue with</div>
+      {/* <div className="mt-6 text-center text-sm text-gray-500">Or continue with</div>
       <div className="mt-4 grid grid-cols-2 gap-4">
         <button className="py-3 border rounded-xl">Google</button>
         <button className="py-3 border rounded-xl">Apple</button>
-      </div>
+      </div> */}
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Don't have an account? <a href="/auth/signup" className="text-indigo-600">Sign up</a>

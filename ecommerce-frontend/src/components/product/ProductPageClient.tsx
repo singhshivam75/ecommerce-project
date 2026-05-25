@@ -11,42 +11,84 @@ export default function ProductPageClient({
 }: {
   products: Product[];
 }) {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products, setProducts] =
+    useState<Product[]>(initialProducts);
 
-  const [search, setSearch] = useState("");
-  const [brand, setBrand] = useState("");
-  const [maxPrice, setMaxPrice] = useState(50000);
+  const [loading, setLoading] = useState(false);
 
-  // ✅ FETCH FROM API WHEN FILTERS CHANGE
+  const [filters, setFilters] = useState({
+    search: "",
+    brand: "",
+    page: 1,
+    limit: 12,
+    sortBy: "createdAt",
+    order: "DESC" as "ASC" | "DESC",
+  });
+
   useEffect(() => {
-    const delayDebounce = setTimeout(async () => {
-      const data = await ProductsAPI.getAll({
-        search,
-        brand,
-        maxPrice,
-      });
+    const debounce = setTimeout(async () => {
 
-      setProducts(data);
-    }, 400); // debounce
+      try {
+        const hasFilters =
+          filters.search ||
+          filters.brand;
 
-    return () => clearTimeout(delayDebounce);
-  }, [search, brand, maxPrice]);
+        // ✅ NO FILTERS
+        if (!hasFilters) {
+          setProducts(initialProducts);
+          return;
+        }
+
+        setLoading(true);
+
+        const data =
+          await ProductsAPI.getAll(filters);
+
+        if (Array.isArray(data)) {
+          setProducts(data);
+        }
+
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+
+    }, 400);
+
+    return () => clearTimeout(debounce);
+
+  }, [filters, initialProducts]);
+
+  const updateFilter = (
+    key: string,
+    value: string | number
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: 1,
+    }));
+  };
 
   return (
     <div className="flex gap-10">
-      
-      {/* SIDEBAR */}
+
+      {/* FILTERS */}
       <FiltersSidebar
-        search={search}
-        setSearch={setSearch}
-        brand={brand}
-        setBrand={setBrand}
-        maxPrice={maxPrice}
-        setMaxPrice={setMaxPrice}
+        filters={filters}
+        updateFilter={updateFilter}
       />
 
       {/* PRODUCTS */}
       <div className="flex-1">
+
+        {loading && (
+          <p className="mb-4 text-gray-500">
+            Loading products...
+          </p>
+        )}
+
         <ProductGrid products={products} />
       </div>
     </div>

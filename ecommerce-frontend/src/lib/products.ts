@@ -1,45 +1,85 @@
-import api from "./api";
+import axios from "axios";
 import { Product } from "@/src/types/product";
-import { products as localProducts } from "@/src/data/products";
+
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
+
+export type ProductFilters = {
+  search?: string;
+  categoryId?: string;
+  brand?: string;
+  color?: string;
+  size?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  order?: "ASC" | "DESC";
+};
+
+function buildQuery(params: ProductFilters) {
+  const query = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (
+      value !== undefined &&
+      value !== null &&
+      value !== ""
+    ) {
+      query.append(key, String(value));
+    }
+  });
+
+  return query.toString();
+}
 
 export const ProductsAPI = {
-  getAll: async (filters?: {
-    search?: string;
-    brand?: string;
-    minPrice?: number;
-    maxPrice?: number;
-  }): Promise<Product[]> => {
+  async getAll(
+    filters: ProductFilters = {}
+  ): Promise<Product[]> {
     try {
-      const params = new URLSearchParams();
+      const query = buildQuery(filters);
 
-      if (filters?.search) params.append("search", filters.search);
-      if (filters?.brand) params.append("brand", filters.brand);
-      if (filters?.minPrice) params.append("minPrice", String(filters.minPrice));
-      if (filters?.maxPrice) params.append("maxPrice", String(filters.maxPrice));
+      const url = query
+        ? `${API_URL}/api/products?${query}`
+        : `${API_URL}/api/products`;
 
-      const res = await api.get(`/products?${params.toString()}`);
-      if (Array.isArray(res.data)) return res.data;
-      if (res.data && Array.isArray(res.data.products)) return res.data.products;
-      return localProducts;
-    } catch (err) {
-      return localProducts;
+      console.log("API URL:", url);
+
+      const res = await axios.get(url);
+
+      console.log("FULL RESPONSE:", res.data);
+
+      // ✅ HANDLE ALL POSSIBLE STRUCTURES
+      const products =
+        res.data?.data ||
+        res.data?.products ||
+        [];
+
+      return Array.isArray(products)
+        ? products
+        : [];
+    } catch (error) {
+      console.error(
+        "GET PRODUCTS ERROR:",
+        error
+      );
+
+      return [];
     }
   },
-
-  getById: async (id: string | number): Promise<Product | undefined> => {
-    if (!id) {
-      throw new Error("Invalid product id");
-    }
-
+  async getBySlug(slug: string) {
     try {
-      const res = await api.get(`/products/${id}`);
-      if (res.data) return res.data;
-    } catch (err) {
-      // fallthrough to local lookup
-    }
+      const res = await axios.get(
+        `${API_URL}/api/products/${slug}`
+    );
 
-    // fallback to local products by matching id as string
-    const strId = String(id);
-    return localProducts.find((p) => p.id === strId);
-  },
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 };
